@@ -1,0 +1,19 @@
+{
+  "name": "mern-todo-app",
+  "version": "1.0.0",
+  "description": "this is to do app with mern",
+  "license": "ISC",
+  "author": "elvin",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
