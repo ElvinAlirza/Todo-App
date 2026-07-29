@@ -1,0 +1,10 @@
+cat >> .gitignore << 'EOF'
+.claude/
+.windsurf/
+.agents/
+Backend/.claude/
+Backend/.windsurf/
+skills-lock.json
+Backend/skills-lock.json
+Backend/.agents/
+EOF
