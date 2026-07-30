@@ -69,8 +69,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /api/todos/:id - Update an existing todo
-router.put('/:id', async (req, res) => {
+// PUT/PATCH /api/todos/:id - Update an existing todo (full or partial update)
+const updateTodoHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, isCompleted, deadline } = req.body;
@@ -108,22 +108,17 @@ router.put('/:id', async (req, res) => {
       error: { code: 'SERVER_ERROR', message: 'Server error while updating todo' },
     });
   }
-});
+};
+
+router.put('/:id', updateTodoHandler);
+router.patch('/:id', updateTodoHandler);
 
 // DELETE /api/todos/:id - Delete a todo
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const todoId = parseInt(id, 10);
-    if (isNaN(todoId)) {
-      return res.status(400).json({
-        success: false,
-        error: { code: 'VALIDATION_ERROR', message: 'Invalid todo ID' },
-      });
-    }
-
-    const existing = await prisma.todo.findUnique({ where: { id: todoId } });
+    const existing = await prisma.todo.findUnique({ where: { id } });
 
     if (!existing) {
       return res.status(404).json({
@@ -139,7 +134,7 @@ router.delete('/:id', async (req, res) => {
       });
     }
 
-    await prisma.todo.delete({ where: { id: todoId } });
+    await prisma.todo.delete({ where: { id } });
 
     res.json({ success: true, data: { message: 'Todo deleted successfully' } });
   } catch (error) {
