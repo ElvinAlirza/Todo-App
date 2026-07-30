@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-const API_URL = 'http://localhost:3001'; // Elvinin verdiyi əsl port ilə əvəz et
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Signup() {
   const [name, setName] = useState('');
